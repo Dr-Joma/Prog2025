@@ -19,5 +19,5 @@ jatek_szam = 0
 nem_talaltDB = 0
 
 # kitalalando szam
-kitalalando_szam = 
+kitalalando_szam = input()
 
