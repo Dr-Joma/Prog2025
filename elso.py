@@ -21,21 +21,31 @@ nem_talaltDB = 0
 # kitalalando szam
 kitalalando_szam = szamok[random.randint(0, len(szamok))]
 
-tipp = int(input("Kerek egy egesz szamot [1-100]: "))
+tipp = input("Kerek egy egesz szamot [1-100]: ")
 
-if (tipp == kitalalando_szam):
-    print("Fasza vagy")
-elif (tipp < kitalalando_szam):
+while (not tipp.isdecimal()):
+    print("szamal nyomd")
+    tipp = input("Kerek egy egesz szamot [1-100]: ")
+    
+tipp = int(tipp)
+
+if (tipp < kitalalando_szam):
     print("nagyob")
-else:
+elif (tipp > kitalalando_szam):
     print("kiseb")
     
 while (tipp != kitalalando_szam):
-    tipp = int(input("Kerek egy egesz szamot [1-100]: "))
+    tipp = input("Kerek egy egesz szamot [1-100]: ")
     
-    if (tipp == kitalalando_szam):
-        print("Fasza vagy")
-    elif (tipp < kitalalando_szam):
+    while (not tipp.isdecimal()):
+        print("szamal nyomd")
+        tipp = input("Kerek egy egesz szamot [1-100]: ")
+
+        tipp = int(tipp)
+    
+    if (tipp < kitalalando_szam):
         print("nagyob")
-    else:
+    elif (tipp > kitalalando_szam):
         print("kiseb")
+        
+print("fasza vagy")
