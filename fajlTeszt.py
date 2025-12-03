@@ -1,16 +1,40 @@
+# Fajlbeolvasas eljarassal
+
 verseny_adatok = []
+inputfajl = "F1-2024dec.csv"
 
-try:
-    with open ("F1-2024dec.csv",encoding="utf-8") as fajl:
-        verseny_adatok = fajl.readlines()
+def adat_beolvasasa(fajlnev):
+    try:
+        with open (fajlnev,encoding="utf-8") as fajl:
+            global verseny_adatok
+            verseny_adatok = fajl.readlines()
         
-except Exception as ex:
-    print(f"ezer van baj mo: {ex}")
-except FileNotFoundError:
-    print("hiva a fajl nyitas kozbe")
-    
-print(verseny_adatok)
+    except Exception as ex:
+        print(f"ezer van baj mo: {ex}")
+    except FileNotFoundError:
+        print("hiva a fajl nyitas kozbe")
 
+# Eljaras
+def pontatlanok():
+    # 1. Hany versenyzo nem szerzett meg pontot?
+    db = 0
+    for i in range (1, len(verseny_adatok)):
+        if (int(verseny_adatok[i].split(',')[1]) == 0):
+            db = db + 1
+    print("Nem kaptak pontot szama:",db)    
+
+# Fuggveny
+def kereso(nev):
+    # 2. Van-e Fernando nevu versenyzo?
+    i = 0
+    while (i<len(verseny_adatok) and nev not in verseny_adatok[i]):
+        i = i + 1
+    if (i<len(verseny_adatok)):
+        return True
+    else:
+        return False
+
+""" 
 '''
     1.  [] Megszámolás
     2.  [] Eldöntés 1, 2
@@ -31,28 +55,14 @@ print(verseny_adatok)
 '''
 
 #-------------------------------
-# 1. Hany versenyzo nem szerzett meg pontot?
 
-db = 0
-for i in range (1, len(verseny_adatok)):
-    if (int(verseny_adatok[i].split(',')[1]) == 0):
-        db = db + 1
-print("Nem kaptak pontot szama:",db)
 
-# 2. Van-e Fernando nevu versenyzo?
 
-i = 0
-while (i<len(verseny_adatok) and "Fernando" not in verseny_adatok[i]):
-    i = i + 1
-if (i<len(verseny_adatok)):
-    print("Van Fernando nevu gyaszkoporso")
-else:
-    print("Nincs Fernando nevu gyaszfeju")
 
 # Megint 2. Mindenki szerzett 90 pontot?
 
 i = 0
-while (i<len(verseny_adatok) and int(verseny_adatok[i].split(',')[1])>=90):
+while (i<len(verseny_adatok) and int(verseny_adatok[i].split(',')[1] ))>90:
     i = i + 1
 if i==len(verseny_adatok):
     print("ye yeah")
@@ -138,9 +148,17 @@ for i in range(1,len(verseny_adatok)-1):
             minertek=int(verseny_adatok[j].split(',')[1])
     s=verseny_adatok[i]
     verseny_adatok[i]=verseny_adatok[min]
-    verseny_adatok[min]=s
+    verseny_adatok[min]=s """
+    
+adat_beolvasasa(inputfajl)
+pontatlanok()
 
-for i in verseny_adatok:
-    print(i)
+van_e = kereso("Fernando")
+if van_e:
+    print("Van Fernando")
+else:
+    print("Nincs Fernando")
+
+
 
 print("END")
