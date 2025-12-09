@@ -34,6 +34,38 @@ def kereso(nev):
     else:
         return False
 
+# Eljaras
+def csapat(nev):
+    i = 1
+    while i<len(verseny_adatok) and "Pierre Gasly" not in verseny_adatok[i]:
+        i = i + 1
+        
+    if i<len(verseny_adatok):
+        print(nev,verseny_adatok[i].split(',')[2].strip(),"csapatban van")
+    else:
+        print("Pierre Gasly nINCS")
+
+# Fuggveny
+def csapattagok(csapatnev):
+    dih = 0
+    masik = []
+    
+    for i in range(2,len(verseny_adatok)):
+        if verseny_adatok[i].split(',')[2].strip()==csapatnev:
+            dih=dih+1
+            masik.append(verseny_adatok[i].split(',')[0])
+    return masik
+
+# Megint 2. Mindenki szerzett 90 pontot?
+def fasz(fasz2):
+    i = 0
+    while (i<len(verseny_adatok) and int(verseny_adatok[i].split(',')[1] ))>90:
+        i = i + 1
+    if i==len(verseny_adatok):
+        print("ye yeah")
+    else:
+        print("o heil nah")
+
 """ 
 '''
     1.  [] Megszámolás
@@ -59,31 +91,13 @@ def kereso(nev):
 
 
 
-# Megint 2. Mindenki szerzett 90 pontot?
 
-i = 0
-while (i<len(verseny_adatok) and int(verseny_adatok[i].split(',')[1] ))>90:
-    i = i + 1
-if i==len(verseny_adatok):
-    print("ye yeah")
-else:
-    print("o heil nah")
 
 # 3. Melyik istallo pilotaja a yuki tsunoda?
 
 while (verseny_adatok[i].split(',')[0]!="Yuki Tsunoda"):
     i = i + 1
 print("Yuki Tsunoda a",verseny_adatok[i].split(',')[2],"istalo tadgja")
-
-# 4. Melyik csapatba volt Pierre Gasly?
-
-i = 1
-while i<len(verseny_adatok) and "Pierre Gasly" not in verseny_adatok[i]:
-    i = i + 1
-if i<len(verseny_adatok):
-    print("Pierre Gasly",verseny_adatok[i].split(',')[2].strip(),"csapatban van")
-else:
-    print("Pierre Gasly nINCS")
 
 # 5. Szamold ki a versenyzok pontszamainak atlagat
 
@@ -110,16 +124,6 @@ for i in range(2,len(verseny_adatok)):
         mini=i
         min=verseny_adatok[i]
 print("A legkeveseb pontal rendelkzp nber:",verseny_adatok[mini].split(',')[0])
-
-# 8. Kik vanak a McLarenbe?
-
-dih = 0
-masik = []
-for i in range(2,len(verseny_adatok)):
-    if verseny_adatok[i].split(',')[2].strip()=="McLaren":
-        dih=dih+1
-        masik.append(verseny_adatok[i].split(',')[0])
-print("mclaren tagjai:",masik)
 
 # 9. Kinek van pontja meg kinek nincs?
 
@@ -151,6 +155,7 @@ for i in range(1,len(verseny_adatok)-1):
     verseny_adatok[min]=s """
     
 adat_beolvasasa(inputfajl)
+
 pontatlanok()
 
 van_e = kereso("Fernando")
@@ -159,6 +164,21 @@ if van_e:
 else:
     print("Nincs Fernando")
 
+csapat("Pierre Gasly")
+
+csapatnev = "mcaklren"
+tag_lista = csapattagok(csapatnev)
+print(f"{csapatnev} tagjai:")
+i=1
+for nev in tag_lista:
+    print(f"{i},{nev:>30}")
+    i+=1
+
 
 
 print("END")
+
+
+
+
+
