@@ -47,16 +47,18 @@ inputfile="12B_dhcp_ponttable.txt"
 
 ossz_pontszam = 0
 
-def fajl_beolvasas(fajl):
+def fajl_beolvasas(inputfile):
     try:
-        with open(fajl,encoding="utf-8") as fajll:
+        with open(inputfile,encoding="utf-8") as fajl:
             global ossz_pontszam
-            global adatok
-            ossz_pontszam = int(fajl.readline().strip().split(" ")[1])
+            ossz_pontszam = int(fajl.readline().strip().split(" ")[2])
             fajl.readline()
             for sor in fajl:
                 sornyi_adat = sor.strip().split(";")
-                adatok.append(sornyi_adat)
+                sornyi_adat[1] = int(sornyi_adat[1])
+                sornyi_adat[2] = int(sornyi_adat[2])
+                sornyi_adat[3] = int(sornyi_adat[3])
+                tanulo_adatok.append(sornyi_adat)
     except IOError as hiba:
         print(hiba)
 
@@ -65,7 +67,8 @@ def fajl_beolvasas(fajl):
     Határozza meg hány tanulóból áll a csoport!
     A metódus neve: csoport_letszam
 """
-
+def csoport_letszam():
+    return len(tanulo_adatok)
 
 
 
@@ -75,9 +78,12 @@ def fajl_beolvasas(fajl):
     Határozza meg melyik tanuló gyűjtötte a legtöbb pontszámot!
     A metódus neve: legszorgalmasabb
 """
-
-
-
+def legszorgalmasabb():
+    maxi = 0
+    for i in range(1,len(tanulo_adatok)):
+        if tanulo_adatok[i][3] > tanulo_adatok[maxi][3]:
+            maxi = i
+    return tanulo_adatok[maxi][0]
 
 
 """
@@ -87,7 +93,11 @@ def fajl_beolvasas(fajl):
     Kiírásnál jelenítse meg a tanulók nevét és az új pontszámokat.
     A metódus neve: miki_ajandek
 """
-
+def miklos():
+    for i in range(len(tanulo_adatok)):
+        tanulo_adatok[i][3] == round(tanulo_adatok[i][3] * 1.05)
+        
+    
 
 
 
@@ -101,14 +111,24 @@ print(f"\n{'*' * 40}\n{cim.upper():^40}\n{'*' * 40}\n\n")
 
 # fajl_beolvasas
 inputfile = "12B_dhcp_ponttabla.txt"
-
+fajl_beolvasas(inputfile)
 ossz_pontszam = 0
 
-adatok = []
+print(tanulo_adatok)
 
-fajl_beolvasas(inputfile)
+print(f"Csop letszama: {csoport_letszam()}")
 
-print(adatok)
+print(f"Legtob pontot szero tanulo: {legszorgalmasabb()}")
+
+print("ju szpinszamok")
+miklos()
+for i in range(len(tanulo_adatok)):
+    print(f"{tanulo_adatok[i][0]:20}\t{tanulo_adatok[i][3]}")
+
+
+
+
+
 # csoport_letszam
 
 # legszorgalmasabb
