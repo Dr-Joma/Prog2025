@@ -97,7 +97,13 @@ def iss_talalkozo():
 '''
 
 def pilota_tav():
-    pass
+    osszes = 0
+    for i in range(len(astronauts)):
+        osszes += astronauts[i][3]
+    pilota = 0
+    for i in range(len(astronauts)):
+        osszes += astronauts[i][3]
+        pilota += astronauts[i][1]
 
 
 # 4. feladat: Az űrhajósok a küldetések száma alapján rangokat kapnak (csillagokat).
